@@ -33,6 +33,7 @@ Estou disponibilizando aqui algumas versões do arquivo de compilação com o de
 Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug deve ser realizado da seguinte forma:
 1) Iniciar o ANSYS, sem executar nenhum comando, por enquanto.
 2) Abrir Visual Studio e anexar o ANSYS ao debbuger do programa: 
+
     2.1) A lista de processos pode ser aberta através do comando `Ctrl+Alt+P` ou conforme apresentado nas figuras a seguir:
         ![](/util/attach1.png)
         ![](/util/attach2.png)
@@ -40,7 +41,7 @@ Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug 
     2.2) Na lista de processos deve ser selecionado o processo `ANSYS.exe`, além de garantir que os demais itens estejam de acordo com a imagem a seguir:
         ![](/util/attach3.png)
 
-    2.3) Com o processo anexado deve ser verificado se os simbolos de debug foram carregados: na aba Output do Debug do Visual Studio haverá uma lista de 'partes do ANSYS' carregadas pelo sistema, em uma destas linhas haverá o diretório onde está a UPF compilada e seu nome, sendo a linha finalizada por `Symbols loaded`, caso a linha seja finalizada como `Module was built without symbols.` o arquivo de compilação deve estar incompleto ou está faltando algum arquivo `.pdb` na pasta de execuçãod a UPF. Na figura a seguir é ilustrado carregamento da UPF UserMat na pasta `C:\ANSYS\UPF Compilar\usermat-ansys\`.
+    2.3) Com o processo anexado deve ser verificado se os simbolos de debug foram carregados: na aba Output do Debug do Visual Studio haverá uma lista de 'partes do ANSYS' carregadas pelo sistema, em uma destas linhas haverá o diretório onde está a UPF compilada e seu nome, sendo a linha finalizada por `Symbols loaded.`, caso a linha seja finalizada como `Module was built without symbols.` o arquivo de compilação deve estar incompleto ou está faltando algum arquivo `.pdb` na pasta de execução da UPF. Na figura a seguir é ilustrado carregamento da UPF `UserMat` na pasta `C:\ANSYS\UPF Compilar\usermat-ansys\`.
         ![](/util/symload.png)
 
     Obs.: A versão 
