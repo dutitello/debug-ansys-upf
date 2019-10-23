@@ -2,6 +2,9 @@
 Aqui vão algumas explicações sobre como editar o arquivo de compilação do ANSYS para ativar o debug e como conectar o debbuger ~~(ou depurrador, wtf?)~~ do Visual Studio ao ANSYS. **Esse tutorial aborda apenas os passos para debuggar UPFs programadas em FORTRAN compiladas na forma `.dll`, através do arquivo `ANSUSERSHARED.bat`. Para debuggar UPFs que compõem um novo executável o procedimento é semelhante, entretanto devem ser alterados outros arquivos que compõem a compilação e linkagem, em caso de duvida basta entrar em contato. :smile:**
 
 
+![](/util/anim.gif)
+
+
 ## Parte 0: Arquivos prontos:
 Estou disponibilizando aqui algumas versões do arquivo de compilação com o debug ativado para certas versões (as que tive acesso), quem trabalhar com outras versões pode me enviar seu `ANSUSERSHARED.bat` que faço as alterações e anexo aqui, também aceito as versões editadas. Quem for usar um desses arquivos prontos pode pular diretamente para a parte 2 do tutorial.
 - [Debug ANSYS v194](https://github.com/dutitello/debug-ansys-upf/raw/master/bats/debug194.bat)
@@ -50,7 +53,7 @@ Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug 
     
     ![](/util/symload.png)
 
-3) Abrir o arquivo fonte de UPF em questão no Visual Studio, este deve estar na pasta da `dll` criada.
+3) Abrir o arquivo fonte da UPF em questão no Visual Studio, este deve estar na pasta da `dll` criada.
 
 4) O processo de debug agora pode ser realizada de forma usual, ~primeiramente~ devem ser criados os breakpoints no código da UPF e então devem ser executados os comandos de análise do ANSYS de maneira tradicional, no momento em que o programa estiver usando a UPF em questão e atingir algum breakpoint o Visual Studio passará ao primeiro plano da tela. 
 
