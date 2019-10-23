@@ -20,9 +20,7 @@ Estou disponibilizando aqui algumas versões do arquivo de compilação com o de
     **Obs.:** `/wrap-margin-` é opcional, serve para que a escrita de arquivos de texto do FORTRAN não tenha limite de colunas.
 
 3) Removendo chamada de otimizador: originalmente o código é compilado de forma otimizada, entretanto isso pode produzir problemas durante o debug, o trecho `/Od` no passo anterior desativa a otimização, entretanto deve ser removido trecho em que a otimização é originalmente ativada, evitando conflitos, para isso as ocorrências de `/O2` no arquivo devem ser removidas, por exemplo:
-
     - Original (v194): `set "COMSWITCH=/O2 /MD /c"` 
-
     - Novo (v194):  `set "COMSWITCH=/MD /c"`
 
 4) Desativando a exclusão automática do arquivo `compile_error.txt`: as bandeiras inseridas no compilador anteriormente irão emitir todo e qualquer aviso de compilação, ~~por mais inutil que seja~~, assim é útil manter o arquivo que isola os erros, para isso remova qualquer ocorrência de `del /Q compile_error.txt` realizada após o comando `ifort`, caso seja também removida a ocorrencia anterior a `ifort` serão acumulados erros entre diferentes execuções.
@@ -40,20 +38,21 @@ Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug 
 
     2.1) A lista de processos pode ser aberta através do comando `Ctrl+Alt+P` ou conforme apresentado nas figuras a seguir:
 
-        ![](/util/attach1.png)
-        ![](/util/attach2.png)
+    ![](/util/attach1.png)
+
+    ![](/util/attach2.png)
 
     2.2) Na lista de processos deve ser selecionado o processo `ANSYS.exe`, além de garantir que os demais itens estejam de acordo com a imagem a seguir:
 
-        ![](/util/attach3.png)
+    ![](/util/attach3.png)
 
     2.3) Com o processo anexado deve ser verificado se os simbolos de debug foram carregados: na aba Output do Debug do Visual Studio haverá uma lista de 'partes do ANSYS' carregadas pelo sistema, em uma destas linhas haverá o diretório onde está a UPF compilada e seu nome, sendo a linha finalizada por `Symbols loaded.`, caso a linha seja finalizada como `Module was built without symbols.` o arquivo de compilação deve estar incompleto ou está faltando algum arquivo `.pdb` na pasta de execução da UPF. Na figura a seguir é ilustrado carregamento da UPF `UserMat` na pasta `C:\ANSYS\UPF Compilar\usermat-ansys\`.
     
-        ![](/util/symload.png)
+    ![](/util/symload.png)
 
 3) Abrir o arquivo fonte de UPF em questão no Visual Studio, este deve estar na pasta da `dll` criada.
 
-4) O processo de debug agora pode ser realizada de forma usual, ~primeiramente~ devem ser criados os breakpoints no código da UPF e então devem ser executados os comandos de análise do ANSYS de maneira tradicional, no momento em que o programa estiver usando a UPF em questão e atingir o breakpoint em questão o Visual Studio passará ao primeiro plano da tela. 
+4) O processo de debug agora pode ser realizada de forma usual, ~primeiramente~ devem ser criados os breakpoints no código da UPF e então devem ser executados os comandos de análise do ANSYS de maneira tradicional, no momento em que o programa estiver usando a UPF em questão e atingir algum breakpoint o Visual Studio passará ao primeiro plano da tela. 
 
-Obs.: Usando a versão 17 do Visual Studio (ANSYS 194) existe um bug entre o Visual Studio e o Intel Fortran onde não é possível acesssar matrizes/vetores durante o debug e o Visual Studio fecha em alguns momentos. A Intel lançou um patch de correção pra isso, se for o seu caso [clique aqui para maiores informações](https://software.intel.com/en-us/articles/fortran-debugger-in-microsoft-visual-studio-2017-crashes-does-not-show-arrays).
+**Obs.:** Usando a versão 17 do Visual Studio (ANSYS 194) existe um bug entre o Visual Studio e o Intel Fortran onde não é possível acesssar matrizes/vetores durante o debug e o Visual Studio fecha em alguns momentos. A Intel lançou um patch de correção pra isso, se for o seu caso [clique aqui para maiores informações](https://software.intel.com/en-us/articles/fortran-debugger-in-microsoft-visual-studio-2017-crashes-does-not-show-arrays).
 
