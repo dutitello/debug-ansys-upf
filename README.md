@@ -62,17 +62,17 @@ Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug 
 
 **Bonus:** o comando `cubo` que rodei na animação no inicio do tutorial é apenas um arquivo APDL (normal) chamado `cubo.mac`. O ANSYS entende arquivos com a extensão `.mac` como macros então facilita bastante a vida. Como *um bom macro* ainda podem ser usados parametros, esses são importados no código APDL como `ARG1`,`ARG2`(existe um limite, acho que `ARG19`), a seguir um exemplo:
     
-    Arquivo `cubo.mac`
+Arquivo `cubo.mac`
     
-    ```
-    fc = ARG1
-    As = ARG2
-    fy = ARG3
+```
+fc = ARG1
+As = ARG2
+fy = ARG3
     
-    ...código APDL normal usando variáveis fc, As, fy...
-    ```
+...código APDL normal usando variáveis fc, As, fy...
+```
     
-    A sintaxe do comando no ANSYS será então `cubo,fc,As,fy` (onde fc, As e fy são valores numéricos).
+A sintaxe do comando no ANSYS será então `cubo,fc,As,fy` (onde fc, As e fy são valores numéricos).
 
 
 *Abraço do Titello*
