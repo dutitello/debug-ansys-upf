@@ -1,12 +1,12 @@
 # Como debuggar UPFs do ANSYS no Visual Studio
-Aqui vão algumas explicações sobre como editar o arquivo de compilação do ANSYS para ativar o debug e como conectar o debbuger ~~(ou depurrador, wtf?)~~ do Visual Studio ao ANSYS. **Esse tutorial aborda apenas os passos para debuggar UPFs programadas em FORTRAN compiladas na forma `.dll`, através do arquivo `ANSUSERSHARED.bat`. Para debuggar UPFs que compõem um novo executável o procedimento é semelhante, entretanto devem ser alterados outros arquivos que compõem a compilação e linkagem, em caso de duvida basta entrar em contato. :smile:**
+Aqui vão algumas explicações sobre como editar o arquivo de compilação do ANSYS para ativar o debug e como conectar o debbuger ~~(ou depurrador, wtf?)~~ do Visual Studio ao ANSYS. **Esse tutorial aborda apenas os passos para debuggar UPFs programadas em FORTRAN compiladas na forma `.dll`, através do arquivo `ANSUSERSHARED.bat`. Para debuggar UPFs que compõem um novo executável o procedimento é semelhante, entretanto devem ser alterados outros arquivos que compõem a compilação e linkagem, em caso de duvida basta entrar em contato.** :smile:
 
 
 ![](/util/anim.gif)
 
 
 ## Parte 0: Arquivos prontos:
-Estou disponibilizando aqui algumas versões do arquivo de compilação com o debug ativado para certas versões (as que tive acesso), quem trabalhar com outras versões pode me enviar seu `ANSUSERSHARED.bat` que faço as alterações e anexo aqui, também aceito as versões editadas. Quem for usar um desses arquivos prontos pode pular diretamente para a parte 2 do tutorial.
+Estou disponibilizando aqui algumas versões do arquivo de compilação com o debug ativado para certas versões (as que tive acesso), quem trabalhar com outras versões pode me enviar seu `ANSUSERSHARED.bat` que faço as alterações e anexo aqui (também aceito as versões editadas). Quem for usar um desses arquivos prontos pode pular diretamente para a parte 2 do tutorial.
 - [Debug ANSYS v194](https://github.com/dutitello/debug-ansys-upf/raw/master/bats/debug194.bat)
 
 ## Parte 1: Edição do arquivo de compilação:
@@ -59,3 +59,5 @@ Após compilar a UPF através do arquivo gravado na Parte 1 o processo de debug 
 
 **Obs.:** Usando a versão 17 do Visual Studio (ANSYS 194) existe um bug entre o Visual Studio e o Intel Fortran onde não é possível acesssar matrizes/vetores durante o debug e o Visual Studio fecha em alguns momentos. A Intel lançou um patch de correção pra isso, se for o seu caso [clique aqui para maiores informações](https://software.intel.com/en-us/articles/fortran-debugger-in-microsoft-visual-studio-2017-crashes-does-not-show-arrays).
 
+
+*Abraço do Titello*
