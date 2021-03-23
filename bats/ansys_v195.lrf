@@ -3,6 +3,8 @@
 -def:ansysex.def
 -opt:ref
 
+-debug
+
 -machine:X64
 -subsystem:windows
 -stack:0x2000000
