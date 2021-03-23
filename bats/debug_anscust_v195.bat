@@ -132,11 +132,17 @@ rem :::::::::::::::::::::::::::::::
    if exist ANSYS.lib  ( del /Q ANSYS.lib  >NUL 2>&1 )
    if exist ANSYS.map  ( del /Q ANSYS.map  >NUL 2>&1 )
 
+   REM Removed here /O2 from CSWITCH and FSWITCH
    set "CUSTMACROS=/DNOSTDCALL /DARGTRAIL /DPCWIN64_SYS /DPCWINX64_SYS /DPCWINNT_SYS /DCADOE_ANSYS"
    set "CMACS=/DCURVEFIT_EXPORTS /D_X86=1 /DOS_WIN32 /DWIN32 /D__STDC__"
-   set "CSWITCH=/O2 /Gy- /EHsc /Zi  /c /W3 /MD"
+   set "CSWITCH=/Gy- /EHsc /Zi  /c /W3 /MD"
    set "FMACS=/D__EFL /DFORTRAN"
-   set "FSWITCH= /O2 /fpp /4Yportlib /auto /c /Fo.\ /MD /watch:source"
+   set "FSWITCH=/fpp /4Yportlib /auto /c /Fo.\ /MD /watch:source"
+
+   REM ------------------------
+   REM Create debug flags
+   set "FDEBUG=/debug /Zi /warn:all /check:all /traceback /Qfp-stack-check /Od /wrap-margin-"
+   REM ------------------------
 
    if exist *.F  (
       rem  The "logo" is the banner that the compilers print-out, when they first
@@ -149,7 +155,7 @@ rem :::::::::::::::::::::::::::::::
          echo.
          echo. compiling Fortran file %%P
          echo.
-         ifort !LOGOMAC! %CUSTMACROS% %FMACS% %FSWITCH% %%P >>compile.log  2>&1
+         ifort !LOGOMAC! %FDEBUG% %CUSTMACROS% %FMACS% %FSWITCH% %%P >>compile.log  2>&1
          set "LOGOMAC=/nologo"
       )
    )
@@ -162,7 +168,7 @@ rem :::::::::::::::::::::::::::::::
          echo.
          echo. compiling C file %%P
          echo.
-         cl !LOGOMAC! %CUSTMACROS% %CMACS% /D__MS_VC_INSTALL_PATH="%VCINPATH%" %CSWITCH% %%P >>compile.log 2>&1
+         cl !LOGOMAC! %CDEBUG% %CUSTMACROS% %CMACS% /D__MS_VC_INSTALL_PATH="%VCINPATH%" %CSWITCH% %%P >>compile.log 2>&1
          set "LOGOMAC=/nologo"
       )
    )
@@ -176,7 +182,7 @@ rem :::::::::::::::::::::::::::::::
          echo. compiling C++ file %%P
          echo.
          rem cl !LOGOMAC! %CUSTMACROS% %CMACS% %CSWITCH% %%P >>compile.log 2>&1
-         cl !LOGOMAC! %CUSTMACROS% %CMACS% /D__MS_VC_INSTALL_PATH="%VCINPATH%" %CSWITCH% %%P >>compile.log 2>&1
+         cl !LOGOMAC! %CDEBUG% %CUSTMACROS% %CMACS% /D__MS_VC_INSTALL_PATH="%VCINPATH%" %CSWITCH% %%P >>compile.log 2>&1
          set "LOGOMAC=/nologo"
       )
    )
