@@ -129,11 +129,17 @@ rem
    set "FMACS=/D_EFL /DFORTRAN"
    set "MACS64=/DPCWIN64_SYS /DPCWINX64_SYS"
 
-   set "COMSWITCH=/O2 /MD /c"
+   REM command was /O2 removed from COMSWITCH
+   set "COMSWITCH=/MD /c"
    set "CSWITCH=/Gy- /EHsc /Zi /W3"
    set "FSWITCH=/fpp /4Yportlib /auto /Fo.\ /watch:source"
    exit /B 0
 
+   REM ------------------------
+   REM Create debug flags
+   set "FDEBUG=/debug /Zi /warn:all /check:all /traceback /Qfp-stack-check /Od /wrap-margin-"
+   set "CDEBUG=/debug /Zi"
+   REM ------------------------
 
 :CompileSourceFiles
    rem  Just build them all at once
@@ -141,15 +147,15 @@ rem
    del /q link.log    link_error.txt    >NUL 2>&1
 
    if "%PLATFORM_DIR%"=="winx64" (
-      if exist *.F    ( ifort %COMMACS% %FMACS% %COMSWITCH% %FSWITCH% %MACS64% *.F   >>compile.log 2>&1 )
-      if exist *.c    ( cl    %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% %MACS64% *.c   >>compile.log 2>&1 )
-      if exist *.cpp  ( cl    %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% %MACS64% *.cpp >>compile.log 2>&1 )
+      if exist *.F    ( ifort %FDEBUG% %COMMACS% %FMACS% %COMSWITCH% %FSWITCH% %MACS64% *.F   >>compile.log 2>&1 )
+      if exist *.c    ( cl    %CDEBUG% %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% %MACS64% *.c   >>compile.log 2>&1 )
+      if exist *.cpp  ( cl    %CDEBUG% %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% %MACS64% *.cpp >>compile.log 2>&1 )
    )
 
    if "%PLATFORM_DIR%"=="intel" (
-      if exist *.F    ( ifort %COMMACS% %FMACS% %COMSWITCH% %FSWITCH% /align:rec4byte *.F   >>compile.log 2>&1 )
-      if exist *.c    ( cl    %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% /Zp4            *.c   >>compile.log 2>&1 )
-      if exist *.cpp  ( cl    %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% /Zp4            *.cpp >>compile.log 2>&1 )
+      if exist *.F    ( ifort %FDEBUG% %COMMACS% %FMACS% %COMSWITCH% %FSWITCH% /align:rec4byte *.F   >>compile.log 2>&1 )
+      if exist *.c    ( cl    %CDEBUG% %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% /Zp4            *.c   >>compile.log 2>&1 )
+      if exist *.cpp  ( cl    %CDEBUG% %COMMACS% %CMACS% %COMSWITCH% %CSWITCH% /Zp4            *.cpp >>compile.log 2>&1 )
    )
 
    if exist compile.log (
@@ -321,6 +327,12 @@ rem
       echo -def:%EXFILE%>>               %LRFFILE%
    )
    echo -dll>>                           %LRFFILE%
+
+   REM ------------------------
+   REM  Debug in linker
+   echo -debug>>                         %LRFFILE%
+   REM ------------------------
+
    echo -machine:%MACHINE_TARGET%>>      %LRFFILE%
    echo -map>>                           %LRFFILE%
    echo -manifest:embed>>                %LRFFILE%
