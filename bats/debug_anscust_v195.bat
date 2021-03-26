@@ -220,16 +220,16 @@ rem :::::::::::::::::::::::::::::::
    if exist ANSYS.exe ( del /Q ANSYS.exe )
 
    if "%AERO%" == "TRUE" (
-      type ansys_v195.lrf >ansys_v195.lrf.sav
-      echo "%ROOT_DIR%\ansys\Custom\User\%PLATFORM_DIR%\Aeroelastic\*.obj">>ansys_v195.lrf
+      type ansys.lrf >ansys.lrf.sav
+      echo "%ROOT_DIR%\ansys\Custom\User\%PLATFORM_DIR%\Aeroelastic\*.obj">>ansys.lrf
 
-      link @ansys_v195.lrf 2>&1 |  findstr /V /R /c:"^ansyslib..lib.* LNK4099: PDB" /c:"^zlibwapi.lib.* LNK4099: PDB"
-      type ansys_v195.lrf.sav >ansys_v195.lrf
-      del /q ansys_v195.lrf.sav
+      link @ansys.lrf 2>&1 |  findstr /V /R /c:"^ansyslib..lib.* LNK4099: PDB" /c:"^zlibwapi.lib.* LNK4099: PDB"
+      type ansys.lrf.sav >ansys.lrf
+      del /q ansys.lrf.sav
 
    ) else (
 
-      link @ansys_v195.lrf 2>&1 |  findstr /V /R /c:"^ansyslib..lib.* LNK4099: PDB" /c:"^zlibwapi.lib.* LNK4099: PDB"
+      link @ansys.lrf 2>&1 |  findstr /V /R /c:"^ansyslib..lib.* LNK4099: PDB" /c:"^zlibwapi.lib.* LNK4099: PDB"
    )
 
    if %ERRORLEVEL% GEQ 1 (
